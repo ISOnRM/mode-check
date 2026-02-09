@@ -1,12 +1,21 @@
 PREFIX ?= /usr/local
+CC ?= gcc
+
+CFLAGS  ?= -O2 -Wall -Werror -Wpedantic
+LDFLAGS ?=
+LDLIBS  ?=
+
+ifeq ($(STATIC),1)
+  LDFLAGS += -static
+endif
 
 mode-check: main.c
-	gcc -O2 -Wall -Werror -Wpedantic main.c -o mode-check
+	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
 
 .PHONY: clean install-user install-system
 
 clean:
-	rm -v mode-check
+	rm -vf mode-check
 
 install-user: mode-check
 	install -vDm 700 ./mode-check ~/.local/bin/mode-check
