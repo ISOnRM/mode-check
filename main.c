@@ -9,9 +9,15 @@
 #include <stdlib.h>
 #include <limits.h>
 
-static void die(const char *msg) {
-    fprintf(stderr, "%s: %s\n", msg, strerror(errno));
-    _exit(1);
+static void die(const char *msg, const char *entry)
+{
+	if (!(entry))
+	{
+		fprintf(stderr, "%s: %s\n", msg, strerror(errno));
+		_exit(1);
+	}
+	fprintf(stderr, "%s: %s (%s)\n", msg, strerror(errno), entry);
+	_exit(1);
 }
 
 // returns 1 if usage is needed
@@ -54,12 +60,12 @@ int main(int argc, char **argv)
 		ret = statx(AT_FDCWD, *argv, AT_STATX_SYNC_AS_STAT, want, &stx);
 		if (ret != 0)
 		{
-			die("statx");
+			die("statx", *argv);
 		}
 
 		if (!(realpath(*argv, resp)))
 		{
-			die("realpath");
+			die("realpath", *argv);
 		}
 
 		if (stx.stx_mask & STATX_MODE)
