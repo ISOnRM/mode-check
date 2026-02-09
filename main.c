@@ -14,8 +14,31 @@ static void die(const char *msg) {
     _exit(1);
 }
 
+// returns 1 if usage is needed
+static int usage(int argc, char **argv)
+{
+	if (argc < 2)
+	{
+		return 1;
+	}
+	for (argv++; *argv; argv++)
+	{
+		if (
+			(strcmp(*argv, "-h") == 0 || strcmp(*argv, "--help") == 0)
+		)
+		return 1;
+	}
+	return 0;
+}
+
 int main(int argc, char **argv)
 {
+	if ((usage(argc, argv)) == 1)
+	{
+		fprintf(stderr, "Usage: %s <filenames>\n-h --help Show this message\n", argv[0]);
+		return 1;
+	}
+
 	unsigned int want = STATX_MODE;
 
 	struct statx stx;
