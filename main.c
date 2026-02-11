@@ -83,6 +83,10 @@ int main(int argc, char **argv)
 				   stx.stx_mode & S_IWOTH ? 'w' : '-',
 				   stx.stx_mode & S_IXOTH ? 'x' : '-');
 		}
+		else
+		{
+			die("statx", NULL);
+		}
 	}
 	return 0;
 }
