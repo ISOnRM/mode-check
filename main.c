@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <sysexits.h>
 
 static void die(const char *msg, const char *entry)
 {
@@ -21,7 +22,7 @@ static void die(const char *msg, const char *entry)
 }
 
 // returns 1 if usage is needed
-static int usage(int argc, char **argv)
+static int need_usage(int argc, char **argv)
 {
 	if (argc < 2)
 	{
@@ -39,7 +40,7 @@ static int usage(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	if ((usage(argc, argv)) == 1)
+	if ((need_usage(argc, argv)) == 1)
 	{
 		fprintf(stderr, "Usage: %s <filenames>\n-h --help Show this message\n", argv[0]);
 		return 1;
