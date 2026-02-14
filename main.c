@@ -40,7 +40,7 @@ static int need_usage(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	if ((need_usage(argc, argv)) == 1)
+	if (need_usage(argc, argv))
 	{
 		fprintf(stderr, "Usage: %s <filenames>\n-h --help Show this message\n", argv[0]);
 		return 1;
