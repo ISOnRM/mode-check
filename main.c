@@ -15,10 +15,10 @@ static void die(const char *msg, const char *entry)
 	if (!(entry))
 	{
 		fprintf(stderr, "%s: %s\n", msg, strerror(errno));
-		_exit(1);
+		exit(1);
 	}
 	fprintf(stderr, "%s: %s (%s)\n", msg, strerror(errno), entry);
-	_exit(1);
+	exit(1);
 }
 
 // returns 1 if usage is needed
